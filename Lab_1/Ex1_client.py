@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from pydoc import cli
 import socket
 
 serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
