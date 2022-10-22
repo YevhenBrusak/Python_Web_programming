@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% block title %} Hobbies {% endblock %}
+
+{% block name %}
+<br><h1 class="text-center">Hobbies</h1>
+{% endblock %}
+
+{% block user_agent %}
+<ul class="nav flex-column">
+    <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">{{user_info}}</a></li>
+</ul>
+{% endblock %}
+
+{% block os %}
+<ul class="nav flex-column">
+    {% for os in os_info %}
+    <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">{{os}}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+{% block time %}
+<ul class="nav flex-column">
+    <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">{{date}}</a></li>
+</ul>
+{% endblock %}

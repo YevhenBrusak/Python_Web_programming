@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+{% block title %} Home {% endblock %}
+
+{% block name %}
+{% if name %}
+<br><h1 class="text-center">{{name}}</h1>
+{% else %}
+<br><h1 class="text-center">Me</h1>
+{% endif %}
+{% endblock %}
+
+{% block body %}
+<p>HLIUYOIEUHGPEORITKHUMPTCORMIUPO8U</p>
+{% endblock %}
+
+{% block user_agent %}
+<ul class="nav flex-column">
+    <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">{{user_info}}</a></li>
+</ul>
+{% endblock %}
+
+{% block os %}
+<ul class="nav flex-column">
+    {% for os in os_info %}
+    <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">{{os}}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+{% block time %}
+<ul class="nav flex-column">
+    <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">{{date}}</a></li>
+</ul>
+{% endblock %}
