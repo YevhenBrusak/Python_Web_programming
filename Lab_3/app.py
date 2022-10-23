@@ -9,10 +9,10 @@ osname = os.name
 oslog = os.getlogin()
 osid = os.getpid()
 os_info = [osname,oslog,osid]
-date = dt.datetime.now()
 
 @app.route('/education')
 def education():
+    date = dt.datetime.now()
     return render_template('education.html', user_info=request.headers.get('User-Agent'),os_info=os_info,date=date)
 
 @app.route('/portfolio')
@@ -21,11 +21,13 @@ def portfolio():
 
 @app.route('/hobbies')
 def hobbies():
+    date = dt.datetime.now()
     return render_template('hobbies.html', user_info=request.headers.get('User-Agent'),os_info=os_info,date=date)
 
 
 @app.route('/')
 def home():  
+    date = dt.datetime.now()
     return render_template('index.html',name='Yevhen Brusak', user_info=request.headers.get('User-Agent'),os_info=os_info,date=date)
 
 
