@@ -1,4 +1,3 @@
-{% include 'nav.html' %}
 
 {% extends 'layout.html' %}
 {% block title %} Hobbies {% endblock %}
@@ -11,24 +10,4 @@
 <p class="text-center">I have many hobbies that I devote to in my free time. My main hobby is football, I watch it, play it and play football simulators.</p>
 <p class="text-center">My favorite football team is Real Madrid - the kings of football)))</p>
 <p class="text-center">Also another hobby of mine is computer games. I like both playing online with friends and going through different storylines on my own.</p>
-{% endblock %}
-
-{% block user_agent %}
-<ul class="nav flex-column">
-    <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">{{user_info}}</a></li>
-</ul>
-{% endblock %}
-
-{% block os %}
-<ul class="nav flex-column">
-    {% for os in os_info %}
-    <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">{{os}}</a></li>
-    {% endfor %}
-</ul>
-{% endblock %}
-
-{% block time %}
-<ul class="nav flex-column">
-    <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">{{date}}</a></li>
-</ul>
 {% endblock %}

@@ -1,0 +1,28 @@
+<div class="container">
+    <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
+        <div class="col mb-3">
+            <p class="text-muted">© 2022</p>
+        </div>
+
+        <div class="col mb-3">
+            <h5>User Agent</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">{{user_info}}</a></li>
+            </ul>
+        </div>
+        <div class="col mb-3">
+            <h5>OS</h5>
+            <ul class="nav flex-column">
+                {% for os in os_info %}
+                <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">{{os}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col mb-3">
+            <h5>Time</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">{{date}}</a></li>
+            </ul>
+        </div>
+    </footer>
+</div>

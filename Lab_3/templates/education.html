@@ -1,4 +1,4 @@
-{% include 'nav.html' %}
+
 
 {% extends 'layout.html' %}
 {% block title %} Education {% endblock %}
@@ -13,24 +13,4 @@
 <h4 class="text-center">2020-2024</h4>
 <p class="text-center">Precarpathian National University</p>
 <p class="text-center">In addition to studying at the university, I study various programming languages on my own and take interesting courses.</p>
-{% endblock %}
-
-{% block user_agent %}
-<ul class="nav flex-column">
-    <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">{{user_info}}</a></li>
-</ul>
-{% endblock %}
-
-{% block os %}
-<ul class="nav flex-column">
-    {% for os in os_info %}
-    <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">{{os}}</a></li>
-    {% endfor %}
-</ul>
-{% endblock %}
-
-{% block time %}
-<ul class="nav flex-column">
-    <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">{{date}}</a></li>
-</ul>
 {% endblock %}

@@ -8,7 +8,7 @@
 </head>
 
 <body>
-
+    {% include "nav.html" %}
     {% block name %}
     {% endblock %}
 
@@ -20,28 +20,5 @@
     <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
 
 </body>
-<div class="container">
-    <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
-        <div class="col mb-3">
-            <p class="text-muted">© 2022</p>
-        </div>
-
-        <div class="col mb-3">
-            <h5>User Agent</h5>
-            {% block user_agent %}
-            {% endblock %}
-        </div>
-        <div class="col mb-3">
-            <h5>OS</h5>
-            {% block os %}
-            {% endblock %}
-        </div>
-        <div class="col mb-3">
-            <h5>Time</h5>
-            {% block time %}
-            {% endblock %}
-        </div>
-    </footer>
-</div>
-
+{% include "footer.html" %}
 </html>
