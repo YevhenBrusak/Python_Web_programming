@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% block title %} Database {% endblock %}
+
+{% block name %}
+<br><h1 class="text-center">Contacts</h1>
+{% endblock %}
+
+{% block body %}
+<table class="table table-hover table-bordered">
+    <thead class="table-dark">
+      <tr>
+       <th scope="col">Id</th>
+       <th scope="col">Name</th>
+       <th scope="col">Email</th>
+       <th scope="col">Phone</th>
+       <th scope="col">Subject</th>
+       <th scope="col">Message</th>
+       <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    {% for data in contacts %}
+    <tbody>
+      <tr>
+       <td>{{data.id}}</td>
+       <td>{{data.name}}</td>
+       <td>{{data.email}}</td>
+       <td>{{data.phone}}</td>
+       <td>{{data.subject}}</td>
+       <td>{{data.message}}</td>
+       <td><a href="{{ url_for('delete_by_id', id=data.id) }}" type="button" class="btn btn-danger">Delete</a></td>
+       </tr>
+    </tbody>
+    {% endfor%}
+ </table>
+{% endblock %}
