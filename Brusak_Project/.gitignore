@@ -6,4 +6,4 @@ migrations/
 #Files
 .flaskenv
 my.log
-side.db
+site.db
