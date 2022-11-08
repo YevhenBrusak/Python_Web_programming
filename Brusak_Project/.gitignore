@@ -1,5 +1,9 @@
+#Folders
 __pycache__/
 myvenv/
+migrations/
+
+#Files
 .flaskenv
 my.log
-migrations/
+side.db
