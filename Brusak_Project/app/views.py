@@ -43,10 +43,10 @@ def contact():
 
     if(session.get('username') == None):
         return render_template('contact.html', form=form, username="Guest")
-    else :
-        form.name.data = session.get('username')
-        form.email.data = session.get('email')
-        return render_template('contact.html', form=form, username=session.get('username'))
+    
+    form.name.data = session.get('username')
+    form.email.data = session.get('email')
+    return render_template('contact.html', form=form, username=session.get('username'))
 
 
 @app.route('/delete_session')
