@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block title %} Users {% endblock %}
+
+{% block name %}
+<br><h1 class="text-center">Users: {{count}}</h1>
+{% endblock %}
+
+{% block body %}
+    {% if all_users %}
+<table class="table table-hover table-bordered">
+    <thead class="table-dark">
+      <tr>
+       <th scope="col">Id</th>
+       <th scope="col">Username</th>
+       <th scope="col">Email</th>
+       <th scope="col">Image_File</th>
+      </tr>
+    </thead>
+    {% for data in all_users %}
+    <tbody>
+      <tr>
+       <td>{{data.id}}</td>
+       <td>{{data.username}}</td>
+       <td>{{data.email}}</td>
+       <td>{{data.image_file}}</td>
+       </tr>
+    </tbody>
+    {% endfor%}
+ </table>
+    {% else %}
+    <h4>No Users Registered!</h4>
+    {% endif %}
+{% endblock %}

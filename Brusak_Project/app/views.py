@@ -2,8 +2,8 @@
 
 from flask import render_template, request, redirect, session, url_for, flash 
 from app import app, db
-from app.models import Contact
-from app.forms import Myform
+from app.models import Contact, User
+from app.forms import Myform, RegistrationForm, LoginForm
 import os
 from loguru import logger
 import datetime as dt
@@ -48,6 +48,36 @@ def contact():
     form.email.data = session.get('email')
     return render_template('contact.html', form=form, username=session.get('username'))
 
+@app.route('/register', methods=['GET','POST'])
+def register() :
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(
+            username = form.username.data,
+            email = form.email.data,
+            password = form.password.data
+        )
+        try:
+            db.session.add(user)
+            db.session.commit()           
+            flash(f'Account created for {form.username.data}! ', category='success')
+            return redirect(url_for('login'))
+        except:
+            db.session.flush()
+            db.session.rollback()
+    return render_template('register.html', form=form)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and user.verify_password(form.password.data):
+            return redirect(url_for("home"))
+        else:
+            flash('Login unsuccessful. Please check email and password ', category='warning')    
+    return render_template('login.html', form=form)
+               
 
 @app.route('/delete_session')
 def delete_session():
@@ -60,11 +90,21 @@ def database() :
     contacts = Contact.query.all()
     return render_template('database.html', contacts=contacts)
 
+@app.route('/users')
+def users():
+    all_users = User.query.all()
+    count_users = User.query.count()
+    return render_template('users.html', all_users=all_users, count=count_users)
+
 @app.route('/database/delete/<id>')
 def delete_by_id(id):
     data = Contact.query.get(id)
-    db.session.delete(data)
-    db.session.commit()
+    try:
+        db.session.delete(data)
+        db.session.commit()
+    except :
+        db.session.flush()
+        db.session.rollback()   
     return redirect(url_for("database"))
 
 @app.context_processor

@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
-{% block title %} Contact {% endblock %}
+{% block title %} Login {% endblock %}
 
 {% block name %}
 
-<br><h1 class="text-center"> Hi, {{username}}</h1>
+<br><h1 class="text-center"> Log In </h1>
 
 {% endblock %}
 
@@ -22,17 +22,15 @@
     <div class="card">
 
       <div class="card-header">
-        <h5>WTF-Form</h5>
+        <h5>Log In</h5>
       </div>
 
       <div class="card-body">
         <form method="post">
           {{ form.csrf_token }}
-          {{ render_field(form.name, class="form-control") }}
           {{ render_field(form.email, class="form-control") }}
-          {{ render_field(form.phone, class="form-control") }}
-          {{ render_field(form.subject, class="form-control") }}
-          {{ render_field(form.message, class="form-control") }}
+          {{ render_field(form.password, class="form-control") }}
+          {{ render_field(form.remember, class="form-check-input") }}
           {{ form.submit(class="btn btn-primary") }}
         </form>
       </div>
