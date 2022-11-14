@@ -4,6 +4,7 @@ from flask import render_template, request, redirect, session, url_for, flash
 from app import app, db
 from app.models import Contact, User
 from app.forms import Myform, RegistrationForm, LoginForm
+from flask_login import login_user, current_user, logout_user, login_required
 import os
 from loguru import logger
 import datetime as dt
@@ -50,6 +51,8 @@ def contact():
 
 @app.route('/register', methods=['GET','POST'])
 def register() :
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(
@@ -69,15 +72,29 @@ def register() :
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.verify_password(form.password.data):
+            login_user(user, remember=form.remember.data)
             return redirect(url_for("home"))
         else:
             flash('Login unsuccessful. Please check email and password ', category='warning')    
     return render_template('login.html', form=form)
                
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('You have been logged out')
+    return redirect(url_for('home'))
+
+@app.route('/account')
+@login_required
+def account():
+    return render_template('account.html')
+
 
 @app.route('/delete_session')
 def delete_session():
@@ -111,7 +128,8 @@ def delete_by_id(id):
 def inject_user():
     date = dt.datetime.now()
     os_info = [os.name,os.getlogin(),os.getpid()]
-    return dict(user_info=request.headers.get('User-Agent'),os_info=os_info,date=date)
+    show = current_user.is_authenticated
+    return dict(user_info=request.headers.get('User-Agent'),os_info=os_info,date=date, show=show)
 
 def save_to_db(form) :
     contact = Contact(
