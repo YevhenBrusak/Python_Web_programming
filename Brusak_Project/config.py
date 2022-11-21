@@ -1,12 +1,38 @@
 import os
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-#General Config
-WTF_CSRF_ENABLED = True
-SECRET_KEY = 'hala_madrid'
+class Config:
+    DEVELOPMENT = False
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'hala_madrid'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    WTF_CSRF_ENABLED = True
+    
 
-#Database
-SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-    'sqlite:///' + os.path.join(basedir, 'site.db')
+class DevConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+    WTF_CSRF_ENABLED = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI') or \
+                              'sqlite:///' + os.path.join(basedir, 'site.db')
 
-SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+class TestConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+    WTF_CSRF_ENABLED = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'test_site.db')
+
+
+class ProdConfig(Config):
+    WTF_CSRF_ENABLED = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI') or \
+                              'sqlite:///' + os.path.join(basedir, 'site.db')
+
+
+config = {
+    'dev': DevConfig,
+    'prod': ProdConfig,
+    'default': DevConfig,
+    'test': TestConfig,
+}

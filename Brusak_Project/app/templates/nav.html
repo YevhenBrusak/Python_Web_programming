@@ -1,25 +1,25 @@
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url_for('portfolio') }}">Portfolio</a>
+        <a class="navbar-brand" href="{{ url_for('home.portfolio') }}">Portfolio</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
-                <a class="nav-link" href="{{ url_for('education') }}">Education</a>
-                <a class="nav-link" href="{{ url_for('hobbies') }}">Hobbies</a>
-                <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
-                <a class="nav-link" href="{{ url_for('database') }}">Database</a>
-                {% if show == false %}
-                <a class="nav-link" href="{{ url_for('register') }}">Registration</a>
-                <a class="nav-link" href="{{ url_for('login') }}">Log In</a>
+                <a class="nav-link active" aria-current="page" href="{{ url_for('home.home') }}">Home</a>
+                <a class="nav-link" href="{{ url_for('home.education') }}">Education</a>
+                <a class="nav-link" href="{{ url_for('home.hobbies') }}">Hobbies</a>
+                <a class="nav-link" href="{{ url_for('cabinet.contact') }}">Contact</a>
+                <a class="nav-link" href="{{ url_for('cabinet.database') }}">Database</a>
+                {% if current_user.is_authenticated == false %}
+                <a class="nav-link" href="{{ url_for('account.register') }}">Registration</a>
+                <a class="nav-link" href="{{ url_for('account.login') }}">Log In</a>
                 {% else %}
-                <a class="nav-link" href="{{ url_for('account') }}">My account</a>
-                <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                <a class="nav-link" href="{{ url_for('account.account') }}">My account</a>
+                <a class="nav-link" href="{{ url_for('account.logout') }}">Logout</a>
                 {% endif %}
-                <a class="nav-link" href="{{ url_for('users') }}">Users</a>
+                <a class="nav-link" href="{{ url_for('account.users') }}">Users</a>
             </div>
         </div>
     </div>
