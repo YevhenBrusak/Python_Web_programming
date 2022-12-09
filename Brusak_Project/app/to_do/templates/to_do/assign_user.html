@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block title %} Asssign {% endblock %}
+
+{% block name %}
+<br>
+<h1 class="text-center"> Assign user </h1>
+{% endblock %}
+
+{% block body %}
+
+{% for cat, msg in get_flashed_messages(True) %}
+<ul class="list-group">
+    <li class="list-group-item list-group-item-{{cat}} mx-auto" style="width: 400px; margin-bottom: 30px;">{{msg}}</li>
+</ul>
+{%endfor %}
+
+{% from "_render_field.html" import render_field %}
+
+
+<div class="col-6 mx-auto">
+
+    <div class="card">
+
+        <div class="card-header">
+            <h5>Add</h5>
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('to_do.assign_user_task', task_id=id) }}" method="post">
+                {{ form.hidden_tag() }}
+                <input type="text" name="email" class="form-control" placeholder="Email"><br>
+                <button type="submit" class="form-control btn btn-primary">Add</button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

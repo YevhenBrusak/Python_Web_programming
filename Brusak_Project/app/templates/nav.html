@@ -18,6 +18,8 @@
                 {% else %}
                 <a class="nav-link" href="{{ url_for('account.account') }}">My account</a>
                 <a class="nav-link" href="{{ url_for('account.logout') }}">Logout</a>
+                <a class="nav-link" href="{{ url_for('to_do.tasks') }}">Tasks</a>
+                <a class="nav-link" href="{{ url_for('to_do.categories') }}">Categories</a>
                 {% endif %}
                 <a class="nav-link" href="{{ url_for('account.users') }}">Users</a>
             </div>

@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block title %} Create Task {% endblock %}
+
+{% block name %}
+<br>
+<h1 class="text-center">New Task</h1>
+{% endblock %}
+
+{% block body %}
+
+{% for cat, msg in get_flashed_messages(True) %}
+<ul class="list-group">
+  <li class="list-group-item list-group-item-{{cat}} mx-auto" style="width: 400px; margin-bottom: 30px;">{{msg}}</li>
+</ul>
+{%endfor %}
+
+{% from "_render_field.html" import render_field %}
+
+<div class="col-6 mx-auto">
+
+  <div class="card">
+
+    <div class="card-header">
+      <h5>Create</h5>
+    </div>
+    <div class="card-body">
+      <form action="{{url_for('to_do.task_create')}}" method="post" class="">
+        {{ form.hidden_tag() }}
+        {% for field in form if field not in [form.submit, form.hidden_tag, form.csrf_token] %}
+        {{render_field(field, class="form-control f-input")}}
+        {% endfor %}
+        {{ form.submit(class_="form-control btn btn-primary") }}
+      </form>
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}

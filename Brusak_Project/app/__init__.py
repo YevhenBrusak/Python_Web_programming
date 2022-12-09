@@ -6,10 +6,11 @@ from flask_login import LoginManager
 from config import config
 
 bcrypt = Bcrypt()
-db = SQLAlchemy()
+
 login_manager = LoginManager()
 login_manager.login_view = 'account.login'
 login_manager.login_message_category = 'info'
+db = SQLAlchemy()
 migrate = Migrate()
 
 
@@ -26,9 +27,11 @@ def create_app(config_name = 'default'):
         from app.home import home_bp
         from app.form_cabinet import cabinet_bp
         from app.account import account_bp
+        from app.to_do import to_do_bp
 
         app.register_blueprint(home_bp)
         app.register_blueprint(cabinet_bp)
         app.register_blueprint(account_bp)
+        app.register_blueprint(to_do_bp)
 
     return app

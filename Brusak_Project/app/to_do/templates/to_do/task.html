@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+
+{% block title %} Task {% endblock %}
+
+{% block name %}
+<br>
+<h1 class="text-center">Task</h1>
+{% endblock %}
+
+{% block body %}
+
+<table class="table table-success table-striped w-75 mx-auto">
+    <tbody>
+        {% for label, text_data in task_detail.items() %}
+        <tr>
+            <td>{{ label }}</td>
+            {% if label == "Priority" or label == "Progress" %}
+            <td>{{ text_data.name }}</td>
+            {% else %}
+            <td>{{ text_data|safe }}</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        <tr>
+            <td>Assigned</td>
+            <td>
+                {% for user in assigned %}
+                <div class="row">
+                    <div class="col-2">
+                        <a class="link-dark" href="{{ url_for('to_do.user_profile', user_id=user.id) }}">{{
+                            user.username }}</a>
+                    </div>
+                    <div class="col-9"></div>
+                </div>
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="btn btn-warning w-100" href="{{ url_for('to_do.task_update', id=id) }}">Update task</a>
+            </td>
+            <td>
+                <a class="btn btn-danger w-50" href="{{ url_for('to_do.task_delete', id=id) }}">Delete task</a>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <a class="btn btn-info w-100" href="{{ url_for('to_do.assign_user_task', task_id=id) }}">Assign user</a>
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<a class="btn btn-dark w-100" href="{{ url_for('to_do.add_comment', task_id=id) }}">Add comment</a><br><br>
+<h1 class="w-100" style="text-align: center;">Comments</h1>
+
+{% for comment in data['comments'] %}
+<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+    <div class="card-header">Comment</div>
+    <div class="card-body">
+        <h5 class="card-title">UserID: {{ comment.owner_id }}</h5>
+        <p class="card-text">{{ comment.content|safe }}</p>
+    </div>
+</div>
+    {% endfor %}
+
+    {% endblock %}

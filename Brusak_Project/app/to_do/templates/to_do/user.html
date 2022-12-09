@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block title %} Tasks {% endblock %}
+
+{% block name %}
+<br>
+<h1 class="text-center">{{ user_info.username }} </h1>
+<br>
+<p class="text-center">{{ user_info.email }} </p>
+{% endblock %}
+
+{% block body %}
+<h2>Tasks</h2>
+<table class="table table-hover table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Deadline</th>
+      <th scope="col">Priority</th>
+      <th scope="col">Progress</th>
+      <th scope="col">Owner</th>
+      <th scope="col">Assigned</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in task_list %}
+    <tr>
+      <td><a href="{{ url_for('to_do.task', id=task.id) }}">{{ task.title }}</a></td>
+      <td>{{ task.deadline }}</td>
+      <td>{{ task.priority.name }}</td>
+      <td>{{ task.progress.name }}</td>
+      <td><a href="{{ url_for('to_do.user_profile', user_id=task.owner_id) }}">{{ task.owner.username }}</a></td>
+      <td>
+        {% for user in task.users %}
+        <p><a href="{{ url_for('to_do.user_profile', user_id=user.id) }}">{{ user.username }}</a></p>
+        {% endfor %}
+      </td>
+    </tr>
+  </tbody>
+  {% endfor%}
+</table>
+
+{% endblock %}
