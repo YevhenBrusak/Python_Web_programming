@@ -2,5 +2,62 @@
 {% block title %} Account {% endblock %}
 
 {% block name %}
-<br><h1 class="text-center">{{current_user.username}}</h1>
+<br>
+<h1 class="text-center">Home Page</h1>
+{% endblock %}
+
+{% block body %}
+<div class="row d-flex justify-content-center">
+
+    <div class="col-md-7">
+
+        <div class="card p-3 py-4">
+
+            <div class="text-center">
+                <img src="{{ image_file }}" width="200" class="rounded-circle">
+            </div>
+
+            <div class="text-center mt-3">
+                <h3 class="mt-2 mb-0">{{ current_user.username }}</h5>
+                    <span>{{ current_user.email }}</span>
+                    <div class="px-4 mt-1">
+                        <p class="fonts">{{ current_user.about_me }}</p>
+                    </div>
+                    <div class="px-4 mt-1">
+                        <p class="fonts">Last seen: {{ current_user.last_seen }}</p>
+                    </div>
+
+                    <div class="buttons">
+                        <a href="{{ url_for('account.reset_password') }}" class="btn btn-outline-primary px-4">Reset
+                            password</a>
+                    </div>
+                    <hr>
+                    <h5>Account info
+                </h3>
+                {% for cat, msg in get_flashed_messages(True) %}
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-{{cat}} mx-auto"
+                        style="width: 400px; margin-bottom: 30px;">{{msg}}</li>
+                </ul>
+                {%endfor %}
+                {% from "_render_field.html" import render_field %}
+                <div class="col-6 mx-auto">
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            {{ form.csrf_token }}
+                            {{ render_field(form.picture, class="form-control") }}
+                            {{ render_field(form.username, class="form-control") }}
+                            {{ render_field(form.email, class="form-control") }}
+                            {{ render_field(form.about_me, class="form-control") }}
+                            {{ form.submit(class="btn btn-primary") }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
 {% endblock %}

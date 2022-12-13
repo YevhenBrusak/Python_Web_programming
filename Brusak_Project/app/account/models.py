@@ -1,3 +1,4 @@
+from sqlalchemy.sql.functions import now
 from .. import bcrypt
 from .. import db, login_manager
 from flask_login import UserMixin
@@ -11,6 +12,8 @@ class User(db.Model, UserMixin) :
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
+    about_me = db.Column(db.String(120), nullable=True)
+    last_seen = db.Column(db.DateTime, default=now())
     password = db.Column(db.String(60), nullable=False)
     tasks_owned = db.relationship('Task', backref='owner', lazy='dynamic')
     comments = db.relationship('Comment', backref='users', lazy='dynamic')
