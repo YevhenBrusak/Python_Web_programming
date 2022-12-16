@@ -32,7 +32,7 @@ def task_create():
         db.session.add(task_info)
         db.session.commit()
 
-        flash(f"Task created: {form.title.data}", category='success')
+        flash(f"Task created!", category='success')
         return redirect(url_for("to_do.task_create"))
 
     elif request.method == 'POST':
@@ -99,14 +99,14 @@ def task_update(id):
         db.session.commit()
 
         flash(f"Task successfully updated", category='success')
-        return redirect(url_for("to_do.task", task_id=id))
+        return redirect(url_for("to_do.task", id=id))
 
     elif request.method == 'POST':
         print(form.errors, form.description.data)
         flash("Не пройшла валідація з Post", category='warning')
-        return redirect(url_for("to_do.task", task_id=id))
+        return redirect(url_for("to_do.task", id=id))
 
-    return render_template('task_update.html', title="Update task", form=form, task_id=id)
+    return render_template('task_update.html', form=form, task_id=id)
 
 @to_do_bp.route('/task/<int:id>/delete', methods=['GET'])
 @login_required
@@ -122,7 +122,7 @@ def task_delete(id):
         flash("Task deleted", category='success')
         current_app.logger.info("Task deleted")
     
-    return redirect(url_for('tasks.tasks'))
+    return redirect(url_for('to_do.task'))
 
 
 @to_do_bp.route('/categories', methods=['GET'])

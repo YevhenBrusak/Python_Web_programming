@@ -2,8 +2,8 @@
 __pycache__/
 myvenv/
 migrations/
+.pytest_cache/
 
 #Files
 .flaskenv
 my.log
-site.db

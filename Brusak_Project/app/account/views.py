@@ -47,9 +47,10 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.verify_password(form.password.data):
             login_user(user, remember=form.remember.data)
+            flash('You have been logged in!', category='success')
             return redirect(url_for("home.home"))
         else:
-            flash('Login unsuccessful. Please check email and password ', category='warning')    
+            flash('Login unsuccessful. Please check email and password', category='warning')    
     return render_template('login.html', form=form)
                
 @account_bp.route('/logout')
