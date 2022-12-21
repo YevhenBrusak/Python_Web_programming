@@ -32,11 +32,15 @@ def create_app(config_name = 'default'):
         from app.account import account_bp
         from app.to_do import to_do_bp
         from app.category_api import category_api_bp
+        from app.task_api import task_api_bp
+        from app.swagger import swagger_bp
 
         app.register_blueprint(home_bp)
         app.register_blueprint(cabinet_bp)
         app.register_blueprint(account_bp)
         app.register_blueprint(to_do_bp)
         app.register_blueprint(category_api_bp, url_prefix='/api')
+        app.register_blueprint(task_api_bp, url_prefix='/api/v2')
+        app.register_blueprint(swagger_bp)
 
     return app
