@@ -1,11 +1,14 @@
+from functools import wraps
+
+from app.category_api import category_api_bp
+from ..import db
+from ..to_do.models import Category
+from ..account.models import User
+
 from sqlalchemy.exc import IntegrityError
 from flask import jsonify, request, make_response
-from functools import wraps
-from ..import db
 from flask_jwt_extended import create_access_token, jwt_required
-from ..to_do.models import Category
-from . import category_api_bp
-from ..account.models import User
+
 
 api_email = 'addams@gmail.com'
 api_password = 'addams123'
@@ -57,7 +60,7 @@ def add_category():
     if not new_category_data:
         return {'message': 'No input data provided'}, 400
 
-    name = new_category_data.get('name')
+    name = new_category_data[0].get('name')
     if not name:
         return jsonify({'message' : 'Not key with name'}), 422
     
@@ -90,7 +93,7 @@ def edit_category(id):
     
     new_category_data = request.get_json()
 
-    name = new_category_data.get('name')
+    name = new_category_data[0].get('name')
     if not name:
         return jsonify({'message' : 'Not key with name'})
     
@@ -112,11 +115,6 @@ def edit_category(id):
 @protected
 def delete_category(id):
     category = Category.query.get(id)
-      
-    try:
-        db.session.delete(category)
-        db.session.commit()
-    except:
-        return jsonify({'message' : f'Невідома помилка на стороні сервера'}), 500
-        
-    return jsonify({'message' : 'The category has been deleted!'}), 204
+    db.session.delete(category)
+    db.session.commit()
+    return jsonify({'message': 'The category has been deleted!'})
