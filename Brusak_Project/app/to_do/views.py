@@ -33,7 +33,7 @@ def task_create():
         db.session.commit()
 
         flash(f"Task created!", category='success')
-        return redirect(url_for("to_do.task_create"))
+        return redirect(url_for("to_do.tasks"))
 
     elif request.method == 'POST':
         flash("Не пройшла валідація з Post", category='warning')
@@ -120,9 +120,8 @@ def task_delete(id):
     else:
         db.session.commit()
         flash("Task deleted", category='success')
-        current_app.logger.info("Task deleted")
     
-    return redirect(url_for('to_do.task'))
+    return redirect(url_for('to_do.tasks'))
 
 
 @to_do_bp.route('/categories', methods=['GET'])
