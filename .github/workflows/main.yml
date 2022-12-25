@@ -1,29 +1,26 @@
-name: Code checks
+name: Deploy Flask App
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - master
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install python
+      - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
-      - name: Install deps
+          python-version: 3.8
+      - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r Brusak_Project/requirements.txt
-      - name: Run tests
-        run: |
-          python Brusak_Project/tests.py
+          python -m venv venv
+          venv/bin/pip install -r Brusak_Project/requirements.txt
       - name: Deploy to Render
-        env:
-          DEPLOY_URL: ${{ secrets.RENDER }}
-        run: |
-          curl "$DEPLOY_URL"
+        uses: actions/setup-python@v2
+        with:
+          github_token: ${{ secrets.BRUSAK_SECRET }}
+          render_token: ${{ secrets.RENDER }}
+          render_app_name: app
