@@ -16,11 +16,11 @@ jobs:
           python-version: 3.8
       - name: Install dependencies
         run: |
-          python -m venv myvenv
-          myvenv/bin/pip install -r Brusak_Project/requirements.txt
+          python -m venv venv
+          venv/bin/pip install -r Brusak_Project/requirements.txt
       - name: Render Deploy
         uses: actions/setup-python@v2
         with:
-          github_token: ${{ secrets.GHUB_TOKEN }}
-          render_token: ${{ secrets.RENDER_TOKEN }}
+          github_token: ${{ secrets.BRUSAK_SECRET }}
+          render_token: ${{ secrets.RENDER }}
           render_app_name: app
