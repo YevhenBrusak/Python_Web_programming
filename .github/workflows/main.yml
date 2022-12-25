@@ -1,0 +1,26 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          python -m venv myvenv
+          myvenv/bin/pip install -r Brusak_Project/requirements.txt
+      - name: Render Deploy
+        uses: actions/setup-python@v2
+        with:
+          github_token: ${{ secrets.GHUB_TOKEN }}
+          render_token: ${{ secrets.RENDER_TOKEN }}
+          render_app_name: app
