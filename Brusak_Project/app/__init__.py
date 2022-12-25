@@ -5,6 +5,8 @@ from flask_migrate import Migrate, migrate
 from flask_login import LoginManager
 from flask_jwt_extended import JWTManager
 from config import config
+import sqlalchemy as sa
+from click import echo
 
 bcrypt = Bcrypt()
 
@@ -25,6 +27,7 @@ def create_app(config_name = 'default'):
     bcrypt.init_app(app)
     login_manager.init_app(app)
     jwt.init_app(app)
+    register_cli_commands(app)
 
     with app.app_context():
         from app.home import home_bp
@@ -43,4 +46,22 @@ def create_app(config_name = 'default'):
         app.register_blueprint(task_api_bp, url_prefix='/api/v2')
         app.register_blueprint(swagger_bp)
 
+        engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+        inspector = sa.inspect(engine)
+        if not inspector.has_table("users"):
+            with app.app_context():
+                db.drop_all()
+                db.create_all()
+                app.logger.info('Initialized the database!')
+        else:
+            app.logger.info('Database already contains the users table.')
+
     return app
+
+def register_cli_commands(app):
+    @app.cli.command('init_db')
+    def initialize_database():
+        """Initialize the database."""
+        db.drop_all()
+        db.create_all()
+        echo('Initialized the database!')
