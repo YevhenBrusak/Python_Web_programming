@@ -26,4 +26,4 @@ jobs:
         env:
           DEPLOY_URL: ${{ secrets.API_URL }}
         run: |
-          curl "$API_URL"
+          curl "$DEPLOY_URL"
