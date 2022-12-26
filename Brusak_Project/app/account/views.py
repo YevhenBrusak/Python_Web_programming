@@ -6,7 +6,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from urllib.parse import urlparse, urljoin
 from datetime import datetime
 
-from .. import db
+from .. import db, bcrypt
 from .models import User
 from .forms import RegistrationForm, LoginForm, UpdateAccountForm, ResetPasswordForm
 from . import account_bp
@@ -114,7 +114,7 @@ def users():
 def reset_password():
     form = ResetPasswordForm()
     if form.validate_on_submit():
-        current_user.password = form.new_password.data
+        current_user.password = bcrypt.generate_password_hash(form.new_password.data).decode('utf8')
         try:
             db.session.commit()
         except:
