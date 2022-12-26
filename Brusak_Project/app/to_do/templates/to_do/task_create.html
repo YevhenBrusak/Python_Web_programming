@@ -32,8 +32,9 @@
         {% endfor %}
         {{ form.submit(class_="form-control btn btn-primary") }}
       </form>
-    </div>
-
+      {{ ckeditor.load() }}
+      {{ ckeditor.config(name='description') }}
+    </div> 
   </div>
 
 </div>
