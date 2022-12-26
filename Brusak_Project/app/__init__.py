@@ -3,6 +3,7 @@ from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, migrate
 from flask_login import LoginManager
+from flask_ckeditor import CKEditor
 from flask_jwt_extended import JWTManager
 from config import config
 import sqlalchemy as sa
@@ -15,6 +16,7 @@ login_manager.login_view = 'account.login'
 login_manager.login_message_category = 'info'
 db = SQLAlchemy()
 migrate = Migrate()
+ckeditor = CKEditor()
 jwt = JWTManager()
 
 
@@ -26,6 +28,7 @@ def create_app(config_name = 'default'):
     migrate.init_app(app, db, render_as_batch=True)
     bcrypt.init_app(app)
     login_manager.init_app(app)
+    ckeditor.init_app(app)
     jwt.init_app(app)
     register_cli_commands(app)
 
